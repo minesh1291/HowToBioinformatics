@@ -15,26 +15,26 @@
 1. Fasta File with Multiple Sequences. eg. Seqs.fasta
 
 2. Multiple Sequence Alignment with Muscle 
-```bash
-muscle -in Seqs.fa -out Seqs.aln
-```
+  ```bash
+  muscle -in Seqs.fa -out Seqs.aln
+  ```
 3. Bootstraping Multiple Sequence Alignment
-```bash
-fseqboot -sequence Seqs.aln -outfile Seqs.boot
-```
+  ```bash
+  fseqboot -sequence Seqs.aln -outfile Seqs.boot
+  ```
 4. Calculating Phylogenic Tree (with multiple threading)
-```bash
-FastTreeMP64 -n 100 <  Seqs.aln.boot > Seqs.trees
-```
+  ```bash
+  FastTreeMP64 -n 100 <  Seqs.aln.boot > Seqs.trees
+  ```
 5. Calculating Consensus Tree
-```bash
-fconsense -intreefile Seqs.trees -outfile Seqs.treefile  -method ml -trout -treeprint Y -outtreefile Seqs.tree
-```
+  ```bash
+  fconsense -intreefile Seqs.trees -outfile Seqs.treefile  -method ml -trout -treeprint Y -outtreefile Seqs.tree
+  ```
 6. Formatting Tree File
-```bash
-perl formatTreeFile.pl Seqs.tree Seqs.BS.tree
-```
+  ```bash
+  perl formatTreeFile.pl Seqs.tree Seqs.BS.tree
+  ```
 7. Draw Tree PNG image
-```bash
-python DrawTree.py Seqs.BS.tree
-```
+  ```bash
+  python DrawTree.py Seqs.BS.tree
+  ```
