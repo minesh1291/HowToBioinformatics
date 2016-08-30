@@ -16,3 +16,13 @@
       http://etetoolkit.org/
       Huerta-Cepas, J., Dopazo, J., & Gabaldón, T. (2010). ETE: a python Environment for Tree Exploration. BMC bioinformatics, 11(1), 24.
       
+
+###
+# Tools For Gene Ontology Analysis
+###
+
+    #topGo - R Bioconductor Package for testing GO terms 
+      https://bioconductor.org/packages/release/bioc/html/topGO.html
+      Alexa A and Rahnenfuhrer J (2016). topGO: Enrichment Analysis for Gene Ontology. R package.
+
+
