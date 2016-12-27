@@ -1,26 +1,48 @@
+# source("http://bioconductor.org/biocLite.R")
+# biocLite()
+# biocLite(c("topGO", "org.Hs.eg.db"))
+
+library("topGO")
+library("org.Hs.eg.db")
+# save(makeGOResult,file = "makeGOResult.v1.RData")
 makeGOResult= function(GOdata,WriteFile){
-  resultFis <- runTest(GOdata, algorithm = "classic", statistic = "fisher")
-  pvalFis <- score(resultFis)
+  
+  test.stat <- new("elimCount", testStatistic = GOFisherTest, name = "Fisher test")
+  result.E.Fish <- getSigGroups(GOdata, test.stat)
+  
+  test.stat <- new("elimScore", testStatistic = GOKSTest, name = "KS tests")
+  result.E.KS <- getSigGroups(GOdata, test.stat)
+  
+  test.stat <- new("classicCount", testStatistic = GOFisherTest, name = "Fisher test")
+  result.C.Fish <- getSigGroups(GOdata, test.stat)
+   
+  # pvalFis <- score(resultFis)
   
   test.stat <- new("classicScore", testStatistic = GOKSTest, name = "KS tests")
-  resultKS <- getSigGroups(GOdata, test.stat)
+  result.C.KS <- getSigGroups(GOdata, test.stat)
   
-  test.stat <- new("elimScore", testStatistic = GOKSTest, name = "Fisher test", cutOff = 0.01)
-  resultElim <- getSigGroups(GOdata, test.stat)
   
-  test.stat <- new("weightCount", testStatistic = GOFisherTest, name = "Fisher test", sigRatio = "ratio")
-  resultWeight <- getSigGroups(GOdata, test.stat)
+  # whichAlgorithms()
+  # whichTests()
   
-  pvalWeight <- score(resultWeight, whichGO = names(pvalFis))
+  # pvalWeight <- score(resultWeight, whichGO = names(pvalFis))
   
   allGO = usedGO(object = GOdata) 
   # use it in GenTable as follows:
   
-  allRes <- GenTable(GOdata, classicFisher = resultFis, elimFisher = resultElim, KS = resultKS, weight = resultWeight,
-                     orderBy = "weight", ranksOf = "classicFisher", topNodes = length(allGO)
+  allRes <- GenTable(GOdata, 
+                     classicFisher = result.C.Fish, 
+                     elimFisher = result.E.Fish, 
+                     classicKS = result.C.KS, 
+                     elimKS = result.E.KS, 
+                     orderBy = "classicFisher", ranksOf = "classicFisher", topNodes = length(allGO)
   )
   
   write.csv(allRes,WriteFile)
+  # biocLite("hgu95av2.db")
+  # library("hgu95av2.db")
+  # printGenes(object = GOdata,whichTerms = c("GO:0002320", "GO:0006820", "GO:0006821")
+  #            ,chip="hgu95av2.db", file = "tmp.genes.csv")
   
 }
 
