@@ -15,17 +15,11 @@ makeGOResult= function(GOdata,WriteFile){
   
   test.stat <- new("classicCount", testStatistic = GOFisherTest, name = "Fisher test")
   result.C.Fish <- getSigGroups(GOdata, test.stat)
-   
-  # pvalFis <- score(resultFis)
   
   test.stat <- new("classicScore", testStatistic = GOKSTest, name = "KS tests")
   result.C.KS <- getSigGroups(GOdata, test.stat)
-  
-  
   # whichAlgorithms()
   # whichTests()
-  
-  # pvalWeight <- score(resultWeight, whichGO = names(pvalFis))
   
   allGO = usedGO(object = GOdata) 
   # use it in GenTable as follows:
@@ -38,12 +32,17 @@ makeGOResult= function(GOdata,WriteFile){
                      orderBy = "classicFisher", ranksOf = "classicFisher", topNodes = length(allGO)
   )
   
-  write.csv(allRes,WriteFile)
-  # biocLite("hgu95av2.db")
-  # library("hgu95av2.db")
-  # printGenes(object = GOdata,whichTerms = c("GO:0002320", "GO:0006820", "GO:0006821")
-  #            ,chip="hgu95av2.db", file = "tmp.genes.csv")
+  class(allRes)#data.frame
+  bg.geneList=genesInTerm(GOdata, whichGO=allRes$GO.ID)
+  bg.geneList.v2 = lapply(bg.geneList,function(x) paste(x,collapse=", ") )
   
+  int.geneList.v1 = lapply(bg.geneList,function(x) x[x %in% myInterestedGenes] )
+  int.geneList.v2 = lapply(int.geneList.v1,FUN = function(x) paste(x,collapse=", ") )
+  int.geneList.v2 =do.call(rbind.data.frame, int.geneList.v2)
+  
+  allRes$GeneSymbols=int.geneList.v2[allRes$GO.ID,1]
+    
+  write.csv(allRes,WriteFile)
 }
 
 ##################################################
