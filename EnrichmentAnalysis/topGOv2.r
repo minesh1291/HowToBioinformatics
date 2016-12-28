@@ -29,7 +29,7 @@ makeGOResult= function(GOdata,WriteFile){
                      elimFisher = result.E.Fish, 
                      classicKS = result.C.KS, 
                      elimKS = result.E.KS, 
-                     orderBy = "classicFisher", ranksOf = "classicFisher", topNodes = length(allGO)
+                     numChar=100,orderBy = "classicFisher", ranksOf = "classicFisher", topNodes = length(allGO)
   )
   
   class(allRes)#data.frame
