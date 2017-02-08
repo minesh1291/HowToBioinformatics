@@ -5,7 +5,7 @@
 library("topGO")
 library("org.Hs.eg.db")
 # save(makeGOResult,file = "makeGOResult.v1.RData")
-makeGOResult= function(GOdata,WriteFile){
+makeGOResult= function(GOdata,WriteFile,myInterestedGenes ){
   
   test.stat <- new("elimCount", testStatistic = GOFisherTest, name = "Fisher test")
   result.E.Fish <- getSigGroups(GOdata, test.stat)
@@ -42,7 +42,7 @@ makeGOResult= function(GOdata,WriteFile){
   
   allRes$GeneSymbols=int.geneList.v2[allRes$GO.ID,1]
     
-  write.csv(allRes,WriteFile)
+  write.csv(allRes,WriteFile,myInterestedGenes )
 }
 
 ##################################################
@@ -70,7 +70,7 @@ makeHs.GOResult= function(myInterestedGenes,OntoType,WriteFile){
                 mapping = "org.Hs.eg.db",
                 ID = "symbol") 
   
-  makeGOResult(GOdata,WriteFile)
+  makeGOResult(GOdata,WriteFile,myInterestedGenes )
   
 }
 
@@ -100,7 +100,7 @@ makeHs.udefined.BG.GOResult= function(allGenes,myInterestedGenes,OntoType,WriteF
                 mapping = "org.Hs.eg.db",
                 ID = "symbol") 
   
-  makeGOResult(GOdata,WriteFile)
+  makeGOResult(GOdata,WriteFile,myInterestedGenes )
   
 }
 
