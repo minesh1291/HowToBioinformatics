@@ -25,4 +25,14 @@
       https://bioconductor.org/packages/release/bioc/html/topGO.html
       Alexa A and Rahnenfuhrer J (2016). topGO: Enrichment Analysis for Gene Ontology. R package.
 
+###
+# Sequence Alignment Tools
+###
 
+ #Comparision
+ 
+ * Accuracy:
+    BLAST > BLAT > Bwa > Bowtie
+ 
+ * Speed:
+    Bowtie > Bwa > BLAT > BLAST
