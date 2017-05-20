@@ -1,5 +1,7 @@
 library("topGO")
-library("org.Hs.eg.db")
+mappingDB="org.Hs.eg.db"
+library(mappingDB)
+
 
 makeGOResult= function(GOdata,WriteFile,myInterestedGenes){
   
@@ -54,7 +56,7 @@ makeHs.GOResult= function(myInterestedGenes,OntoType,WriteFile){
   #WriteFile = csv filename with path
   
   ## GO to Symbol mappings (only the BP ontology is used)
-  xx <- annFUN.org(OntoType, mapping = "org.Hs.eg.db", ID = "symbol")
+  xx <- annFUN.org(OntoType, mapping = mappingDB, ID = "symbol")
   # head(xx)
   allGenes <- unique(unlist(xx))
   # myInterestedGenes <- sample(allGenes, 500)
@@ -66,7 +68,7 @@ makeHs.GOResult= function(myInterestedGenes,OntoType,WriteFile){
                 allGenes = geneList,
                 nodeSize = 5,
                 annot = annFUN.org, 
-                mapping = "org.Hs.eg.db",
+                mapping = mappingDB,
                 ID = "symbol") 
   
   makeGOResult(GOdata,WriteFile,myInterestedGenes)
@@ -82,7 +84,7 @@ makeHs.udefined.BG.GOResult= function(allGenes,myInterestedGenes,OntoType,WriteF
   #WriteFile = csv filename with path
   
   ## GO to Symbol mappings (only the BP ontology is used)
-  xx <- annFUN.org(OntoType, mapping = "org.Hs.eg.db", ID = "symbol")
+  xx <- annFUN.org(OntoType, mapping = mappingDB, ID = "symbol")
   # head(xx)
   allGenes_Hs <- unique(unlist(xx))
   # allGenes <- IAG_names[IAG_names %in% allGenes_Hs]
@@ -96,7 +98,7 @@ makeHs.udefined.BG.GOResult= function(allGenes,myInterestedGenes,OntoType,WriteF
                 allGenes = geneList,
                 nodeSize = 5,
                 annot = annFUN.org, 
-                mapping = "org.Hs.eg.db",
+                mapping = mappingDB,
                 ID = "symbol") 
   
   makeGOResult(GOdata,WriteFile,myInterestedGenes)
