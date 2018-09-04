@@ -22,6 +22,12 @@ library(bigrquery)
 		tcga_cohorts <- as.data.frame(tb_data)
 		save(tcga_cohorts,file = "tcga_cohorts.Rdata")		
 
+# > tcga_cohorts
+#    project_id   dataset_id table_id creation_time last_modified_time row_count size_bytes type
+# 1     isb-cgc tcga_cohorts      ACC            NA                 NA       180       5760    1
+# 2     isb-cgc tcga_cohorts     BLCA            NA                 NA       806      25792    1
+# 3     isb-cgc tcga_cohorts     BRCA            NA                 NA      2236      71552    1
+# 4     isb-cgc tcga_cohorts     CESC            NA                 NA       597      19104    1
 		
 ## format query
 		sql <- "SELECT
@@ -44,6 +50,16 @@ GROUP BY
 		table(mRNA_genes$gene_type)
 		save(mRNA_genes,file = "mRNA_genes.Rdata")		
 
+#                              GeneType  Freq
+# 20                     protein_coding 19814
+# 18               processed_pseudogene 10304
+# 10                            lincRNA  7656
+# 2                           antisense  5565
+# 12                              miRNA  4093
+# 43             unprocessed_pseudogene  2574
+# 13                           misc_RNA  2298
+# 28                              snRNA  1896
+# 30                                TEC  1045
 		
 ##
 		
